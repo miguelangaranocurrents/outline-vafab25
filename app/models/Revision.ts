@@ -37,9 +37,14 @@ class Revision extends ParanoidModel {
   @observable
   name: string | null;
 
-  /** Prosemirror data of the content when revision was created */
+  /**
+   * Prosemirror data of the content when revision was created. Lists omit the
+   * content, so it is undefined until the revision is fetched. The default
+   * makes the property exist before the model is made observable, so that
+   * observers reading it re-render when the content arrives.
+   */
   @observable.shallow
-  data: ProsemirrorData;
+  data: ProsemirrorData | undefined = undefined;
 
   /** The icon (or) emoji of the document when the revision was created */
   @observable
